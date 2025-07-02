@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { userLoggedIn, userLoggedOut } from "../authSlice";
 
-const USER_API = "https://30959389-739d-41f8-913c-12ddbdace2b2-00-1j4uqwhpbnm1o.pike.replit.dev/api/v1/user/"
+const USER_API = "https://47b91c91-1b41-4922-b806-ef0e0dcb7fef-00-3bwx82ntcxyfp.sisko.replit.dev/api/v1/user/"
 
 export const authApi = createApi({
     reducerPath:"authApi",
