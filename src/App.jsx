@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Login from "./pages/Login";
 import HeroSection from "./pages/student/HeroSection";
 import MainLayout from "./layout/MainLayout";
 import Courses from "./pages/student/Courses";
@@ -19,12 +18,49 @@ import SearchPage from "./pages/student/SearchPage";
 import {
   AdminRoute,
   AuthenticatedUser,
-  ProtectedRoute,
-} from "./components/ProtectedRoutes";
-import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
+  ProtectedRoutes,
+} from "@/components/ProtectedRoutes";
 import { ThemeProvider } from "./components/ThemeProvider";
+import Login from "./pages/auth/Login";
+import ResetPassword from "./pages/auth/ResetPassword";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import OTP from "./pages/auth/OTP";
+import Signup from "./pages/auth/Signup";
+import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
 
 const appRouter = createBrowserRouter([
+  {
+    path: "/login",
+    element: (
+      <AuthenticatedUser>
+        <Login />
+      </AuthenticatedUser>
+    ),
+  },
+  {
+    path: "/signup",
+    element: (
+      <AuthenticatedUser>
+        <Signup />
+      </AuthenticatedUser>
+    ),
+  },
+  {
+    path: "/forgot-password",
+    element: (
+      <AuthenticatedUser>
+        <ForgotPassword />
+      </AuthenticatedUser>
+    ),
+  },
+  {
+    path: "reset-password/:token",
+    element: <ResetPassword />,
+  },
+  {
+    path: "verify-email",
+    element: <OTP />,
+  },
   {
     path: "/",
     element: <MainLayout />,
@@ -38,54 +74,47 @@ const appRouter = createBrowserRouter([
           </>
         ),
       },
-      {
-        path: "login",
-        element: (
-          <AuthenticatedUser>
-            <Login />
-          </AuthenticatedUser>
-        ),
-      },
+
       {
         path: "my-learning",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoutes>
             <MyLearning />
-          </ProtectedRoute>
+          </ProtectedRoutes>
         ),
       },
       {
         path: "profile",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoutes>
             <Profile />
-          </ProtectedRoute>
+          </ProtectedRoutes>
         ),
       },
       {
         path: "course/search",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoutes>
             <SearchPage />
-          </ProtectedRoute>
+          </ProtectedRoutes>
         ),
       },
       {
         path: "course-detail/:courseId",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoutes>
             <CourseDetail />
-          </ProtectedRoute>
+          </ProtectedRoutes>
         ),
       },
       {
         path: "course-progress/:courseId",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoutes>
             <PurchaseCourseProtectedRoute>
-            <CourseProgress />
+              <CourseProgress />
             </PurchaseCourseProtectedRoute>
-          </ProtectedRoute>
+          </ProtectedRoutes>
         ),
       },
 
@@ -132,7 +161,7 @@ function App() {
   return (
     <main>
       <ThemeProvider>
-      <RouterProvider router={appRouter} />
+        <RouterProvider router={appRouter} />
       </ThemeProvider>
     </main>
   );

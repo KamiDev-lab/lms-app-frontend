@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Course from "./Course";
 import {
   useLoadUserQuery,
@@ -50,9 +50,6 @@ const Profile = () => {
     await updateUser(formData);
   };
 
-  useEffect(() => {
-    refetch();
-  }, []);
 
   useEffect(() => {
     if (isSuccess) {
@@ -62,13 +59,11 @@ const Profile = () => {
     if (isError) {
       toast.error(error.message || "Failed to update profile");
     }
-  }, [error, updateUserData, isSuccess, isError]);
+  }, [isSuccess, isError]);
 
   if (isLoading) return <h1>Profile Loading...</h1>;
 
   const user = data && data.user;
-
-  console.log(user);
   
 
   return (

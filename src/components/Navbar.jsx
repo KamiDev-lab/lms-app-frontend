@@ -1,4 +1,4 @@
-import { Menu, School } from "lucide-react";
+import { Code, Menu, School } from "lucide-react";
 import React, { useEffect } from "react";
 import {
   DropdownMenu,
@@ -33,12 +33,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutHandler = async () => {
     await logoutUser();
+       navigate("/");
   };
 
   useEffect(() => {
     if (isSuccess) {
       toast.success(data?.message || "User log out.");
-      navigate("/login");
+      navigate("/");
     }
   }, [isSuccess]);
 
@@ -47,10 +48,10 @@ const Navbar = () => {
       {/* Desktop */}
       <div className="max-w-7xl mx-auto hidden md:flex justify-between items-center gap-10 h-full">
         <div className="flex items-center gap-2">
-          <School size={"30"} />
+          <Code size={24} />
           <Link to="/">
             <h1 className="hidden md:block font-extrabold text-2xl">
-              E-Learning
+              TechElevate
             </h1>
           </Link>
         </div>
@@ -85,7 +86,9 @@ const Navbar = () => {
                 {user?.role === "instructor" && (
                   <>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem><Link to="/admin/dashboard">Dashboard</Link></DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link to="/admin/dashboard">Dashboard</Link>
+                    </DropdownMenuItem>
                   </>
                 )}
               </DropdownMenuContent>
@@ -95,7 +98,7 @@ const Navbar = () => {
               <Button variant="outline" onClick={() => navigate("/login")}>
                 Login
               </Button>
-              <Button onClick={() => navigate("/login")}>Signup</Button>
+              <Button onClick={() => navigate("/signup")}>Signup</Button>
             </div>
           )}
           <DarkMode />
@@ -103,8 +106,8 @@ const Navbar = () => {
       </div>
       {/* Mobile device  */}
       <div className="flex md:hidden items-center justify-between px-4 h-full">
-        <h1 className="font-extrabold text-2xl">E-learning</h1>
-        <MobileNavbar user={user}/>
+        <h1 className="font-extrabold text-2xl">TechElevate</h1>
+        <MobileNavbar user={user} />
       </div>
     </div>
   );
@@ -112,9 +115,9 @@ const Navbar = () => {
 
 export default Navbar;
 
-const MobileNavbar = ({user}) => {
+const MobileNavbar = ({ user }) => {
   const navigate = useNavigate();
-  
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -128,7 +131,10 @@ const MobileNavbar = ({user}) => {
       </SheetTrigger>
       <SheetContent className="flex flex-col">
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
-          <SheetTitle> <Link to="/">E-Learning</Link></SheetTitle>
+          <SheetTitle>
+            {" "}
+            <Link to="/">TechElevate</Link>
+          </SheetTitle>
           <DarkMode />
         </SheetHeader>
         <Separator className="mr-2" />
@@ -140,7 +146,12 @@ const MobileNavbar = ({user}) => {
         {user?.role === "instructor" && (
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit" onClick={()=> navigate("/admin/dashboard")}>Dashboard</Button>
+              <Button
+                type="submit"
+                onClick={() => navigate("/admin/dashboard")}
+              >
+                Dashboard
+              </Button>
             </SheetClose>
           </SheetFooter>
         )}
